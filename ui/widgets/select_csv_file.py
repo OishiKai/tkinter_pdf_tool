@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from config.fonts import get_fonts
 from logic.file_handler import open_csv
 
 
@@ -7,14 +8,12 @@ class SelectCsvFile(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master, corner_radius=0, fg_color="transparent")
         self.pack(fill="x")
-
-        # 共通フォント
-        default_font = ctk.CTkFont(family="Helvetica", size=10)
+        fonts = get_fonts()
 
         first_discription = ctk.CTkLabel(
             self,
             text="1. 下記の手順に従い、CSVファイルを読み込みます。",
-            font=default_font,
+            font=fonts["description"],
         )
         first_discription.pack(side="top", anchor="nw", padx=8)
 
@@ -31,7 +30,7 @@ class SelectCsvFile(ctk.CTkFrame):
         user_list_csv_discription = ctk.CTkLabel(
             user_list_csv_frame,
             text="①Speed Letter Plus管理Webからダウンロードした利用者一覧CSVを選択してください。",
-            font=("Helvetica", 10),
+            font=fonts["description"],
         )
         user_list_csv_discription.pack(side="top", anchor="nw")
 
@@ -42,7 +41,7 @@ class SelectCsvFile(ctk.CTkFrame):
             hover_color="#766b6b",
             text="利用者一覧CSV読み込み",
             text_color="white",
-            font=("Helvetica Bold", 12),
+            font=fonts["title"],
             command=self.select_user_list_csv,
             width=180,
         )
@@ -77,7 +76,7 @@ class SelectCsvFile(ctk.CTkFrame):
         address_list_csv_discription = ctk.CTkLabel(
             address_list_csv_frame,
             text="②自治体基幹システム等からダウンロードした全送付者リストCSVを選択してください。",
-            font=("Helvetica", 10),
+            font=fonts["description"],
         )
         address_list_csv_discription.pack(side="top", anchor="nw")
 
@@ -88,7 +87,7 @@ class SelectCsvFile(ctk.CTkFrame):
             hover_color="#766b6b",
             text="全送付者リストCSV読み込み",
             text_color="white",
-            font=("Helvetica Bold", 12),
+            font=fonts["title"],
             command=self.select_address_list_csv,
             width=180,
         )
