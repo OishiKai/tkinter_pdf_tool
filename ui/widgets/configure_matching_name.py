@@ -1,5 +1,6 @@
 import customtkinter as ctk
 import config.colors as colors
+import config.matching as matching
 from config.fonts import get_fonts
 
 
@@ -60,105 +61,46 @@ class ConfigureMatchingName(ctk.CTkFrame):
             matching_item_frame,
             text="項目名",
             font=fonts["default"],
-            width=150,
+            width=600 / len(matching.matching_items),
             height=20,
             bg_color="lightgray",
         ).grid(row=0, column=0)
-        ctk.CTkLabel(
-            matching_item_frame,
-            text="氏名",
-            font=fonts["default"],
-            width=150,
-            height=20,
-            bg_color="lightgray",
-        ).grid(row=0, column=1)
-        ctk.CTkLabel(
-            matching_item_frame,
-            text="生年月日",
-            font=fonts["default"],
-            width=150,
-            height=20,
-            bg_color="lightgray",
-        ).grid(row=0, column=2)
-        ctk.CTkLabel(
-            matching_item_frame,
-            text="シリアル番号",
-            font=fonts["default"],
-            width=150,
-            height=20,
-            bg_color="lightgray",
-        ).grid(row=0, column=3)
-        ctk.CTkLabel(
-            matching_item_frame,
-            text="管理コード",
-            font=fonts["default"],
-            width=150,
-            height=20,
-            bg_color="lightgray",
-        ).grid(row=0, column=4)
+
+        # マッチング項目名分ループしてテーブルのヘッダーを作成
+        for item in matching.matching_items:
+            ctk.CTkLabel(
+                matching_item_frame,
+                text=item,
+                font=fonts["default"],
+                width=600 / len(matching.matching_items),
+                height=20,
+                bg_color="lightgray",
+            ).grid(row=0, column=matching.matching_items.index(item) + 1)
+
         ctk.CTkLabel(
             matching_item_frame,
             text="項目値",
             font=fonts["default"],
-            width=150,
+            width=600 / len(matching.matching_items),
             height=40,
             bg_color="lightgray",
         ).grid(row=1, column=0)
 
-        # マッチング項目名入力
+        # マッチング項目値入力フォーム
+        self.matching_entry_map = {}  # {"項目名": entry} の形式で入力された値を保持
 
-        # 氏名
-        self.matching_name = ctk.CTkEntry(
-            matching_item_frame,
-            corner_radius=0,
-            border_width=1,
-            font=fonts["default"],
-            width=150,
-            height=40,
-            justify="center",
-            fg_color=colors.input_color,
-            border_color="gray",
-        )
-        self.matching_name.grid(row=1, column=1)
-
-        # 生年月日
-        self.matching_birthday = ctk.CTkEntry(
-            matching_item_frame,
-            corner_radius=0,
-            border_width=1,
-            font=fonts["default"],
-            width=150,
-            height=40,
-            justify="center",
-            fg_color=colors.input_color,
-            border_color="gray",
-        )
-        self.matching_birthday.grid(row=1, column=2)
-
-        # シリアル番号
-        self.matching_serial_number = ctk.CTkEntry(
-            matching_item_frame,
-            corner_radius=0,
-            border_width=1,
-            font=fonts["default"],
-            width=150,
-            height=40,
-            justify="center",
-            fg_color=colors.input_color,
-            border_color="gray",
-        )
-        self.matching_serial_number.grid(row=1, column=3)
-
-        # 管理コード
-        self.matching_code = ctk.CTkEntry(
-            matching_item_frame,
-            corner_radius=0,
-            border_width=1,
-            font=fonts["default"],
-            width=150,
-            height=40,
-            justify="center",
-            fg_color=colors.input_color,
-            border_color="gray",
-        )
-        self.matching_code.grid(row=1, column=4)
+        # マッチング項目名分ループしてテーブルのボディーを作成
+        for item in matching.matching_items:
+            entry = ctk.CTkEntry(
+                matching_item_frame,
+                corner_radius=0,
+                border_width=1,
+                font=fonts["default"],
+                width=600 / len(matching.matching_items),
+                height=40,
+                justify="center",
+                fg_color=colors.input_color,
+                border_color="gray",
+            )
+            entry.grid(row=1, column=matching.matching_items.index(item) + 1)
+            self.matching_entry_map[item] = entry

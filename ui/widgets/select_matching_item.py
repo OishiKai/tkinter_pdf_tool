@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from config.fonts import get_fonts
+import config.matching as matching
 
 
 # マッチング項目選択
@@ -35,12 +36,7 @@ class SelectMatchingItem(ctk.CTkFrame):
         # マッチング対象選択プルダウン
         self.matching_target = ctk.CTkComboBox(
             matching_target_frame,
-            values=[
-                "氏名・生年月日",
-                "シリアル番号(※1)",
-                "管理コード(※2)",
-                "管理コード・生年月日(※2)",
-            ],
+            values=matching.matching_targets,
             font=fonts["title"],
             width=200,
         )

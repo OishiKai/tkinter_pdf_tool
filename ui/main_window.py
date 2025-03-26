@@ -62,9 +62,26 @@ class MainWindow(ctk.CTk):
             command=self.execute_matching,
             width=300,
         )
-        matching_button.pack(side="top", anchor="nw", padx=20, pady=10)
+        matching_button.pack(side="top", anchor="nw", padx=20)
 
-        # クリック時にフォーカスを解除
+        # エラーメッセージFrame
+        self.error_message_frame = ctk.CTkFrame(
+            self,
+            fg_color=colors.error_color,
+            corner_radius=5,
+            height=30,
+        )
+        self.error_message_frame.pack_forget()  # 初期状態は非表示
+
+        # エラーメッセージ
+        self.error_message = ctk.CTkLabel(
+            self.error_message_frame,
+            font=fonts["title"],
+            text_color="white",
+        )
+        self.error_message.pack(side="top", anchor="nw", padx=20)
+
+        # Enterでフォーカスを解除
         self.bind_all("<Return>", self.remove_focus)
 
     # フォーカスを解除するメソッド
@@ -81,14 +98,16 @@ class MainWindow(ctk.CTk):
         print(user_list_csv_path)
         print(address_list_csv_path)
         if not user_list_csv_path or not address_list_csv_path:
-            print("ファイルが選択されていません")
+            self.error_message.configure(text="CSVファイルを選択してください")
+            self.error_message_frame.pack(side="top", anchor="nw", padx=30)
             return
+
+        self.error_message_frame.pack_forget()
 
         # マッチング項目取得
         matching_target = self.slect_matching_item.matching_target.get()
+        print(matching_target)
 
         # マッチング項目値取得
-        matching_name = self.configure_matching_name.matching_name.get()
-        matching_birthday = self.configure_matching_name.matching_birthday.get()
-        matching_serial = self.configure_matching_name.matching_serial_number.get()
-        matching_code = self.configure_matching_name.matching_code.get()
+        matching_entry_map = self.configure_matching_name.matching_entry_map
+        print(matching_entry_map)
