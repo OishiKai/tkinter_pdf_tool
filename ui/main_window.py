@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from ui.sub_window import SubWindow
 from ui.widgets.select_csv_file import SelectCsvFile
-from ui.widgets.configure_matching import SelectMatchingItem
+from ui.widgets.select_matching_item import SelectMatchingItem
 from logic.file_handler import open_csv
 
 
