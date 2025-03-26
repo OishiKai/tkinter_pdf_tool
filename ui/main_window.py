@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from ui.sub_window import SubWindow
 from ui.widgets.select_csv_file import SelectCsvFile
-from ui.widgets.configure_matching import ConfigureMatching
+from ui.widgets.configure_matching import SelectMatchingItem
 from logic.file_handler import open_csv
 
 
@@ -23,11 +23,11 @@ class MainWindow(ctk.CTk):
         )
         intro_label.pack(side="left", padx=20, pady=4)
 
-        # 2種CSV読み込み
+        # 1. 二種CSV読み込み
         select_csv_file = SelectCsvFile(self)
 
-        # マッチング対象選択・項目値設定
-        configre_matching = ConfigureMatching(self)
+        # 2. マッチング対象選択
+        slect_matching_item = SelectMatchingItem(self)
 
     def open_sub_window(self):
         self.sub_win = SubWindow(self)

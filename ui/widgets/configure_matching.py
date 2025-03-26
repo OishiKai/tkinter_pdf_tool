@@ -1,7 +1,8 @@
 import customtkinter as ctk
 
 
-class ConfigureMatching(ctk.CTkFrame):
+# マッチング項目選択ウィジェット
+class SelectMatchingItem(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master, corner_radius=0, fg_color="transparent")
         self.pack(fill="x")
@@ -11,7 +12,7 @@ class ConfigureMatching(ctk.CTkFrame):
 
         first_discription = ctk.CTkLabel(
             self,
-            text="2. マッチング対象を選択し、項目値を設定します。",
+            text="2. 1で読み込んだ①と②のCSVをマッチングして郵送者リストとデジタル送付者リストを作成するために、マッチング項目をプルダウンから選択します。",
             font=default_font,
         )
         first_discription.pack(side="top", anchor="nw", padx=8)
@@ -27,37 +28,48 @@ class ConfigureMatching(ctk.CTkFrame):
 
         matching_target_discription = ctk.CTkLabel(
             matching_target_frame,
-            text="②マッチング対象を選択してください。",
-            font=("Helvetica", 10),
+            text="マッチング対象を選択",
+            font=default_font,
         )
         matching_target_discription.pack(side="top", anchor="nw")
 
+        # マッチング対象選択プルダウン
         self.matching_target = ctk.CTkComboBox(
             matching_target_frame,
-            font=("Helvetica", 10),
-            width=30,
+            values=[
+                "氏名・生年月日",
+                "シリアル番号(※1)",
+                "管理コード(※2)",
+                "管理コード・生年月日(※2)",
+            ],
+            font=("Helvetica Bold", 12),
+            width=200,
         )
+        self.matching_target.set("氏名・生年月日")
         self.matching_target.pack(side="left")
 
-        # 項目値設定
-        item_value_frame = ctk.CTkFrame(
+        # 注釈Frame
+        matching_target_discription_frame = ctk.CTkFrame(
             self,
             corner_radius=0,
             fg_color="transparent",
         )
+        matching_target_discription_frame.pack(fill="x", padx=30, pady=10)
 
-        item_value_frame.pack(fill="x", padx=20)
-
-        item_value_discription = ctk.CTkLabel(
-            item_value_frame,
-            text="③項目値を設定してください。",
-            font=("Helvetica", 10),
+        # シリアル番号注釈
+        matching_target_discription1 = ctk.CTkLabel(
+            matching_target_discription_frame,
+            text="※1: シリアル番号でのマッチングは利用登録Webの本人確認アプリオプションのみご利用可能です。",
+            font=default_font,
+            height=0,
         )
-        item_value_discription.pack(side="top", anchor="nw")
+        matching_target_discription1.pack(side="top", anchor="nw")
 
-        self.item_value = ctk.CTkComboBox(
-            item_value_frame,
-            font=("Helvetica", 10),
-            width=30,
+        # 管理コード注釈
+        matching_target_discription2 = ctk.CTkLabel(
+            matching_target_discription_frame,
+            text="※2: 管理コードでのマッチングは導入時に管理コード項目を選択した場合のみご利用可能です。",
+            font=default_font,
+            height=0,
         )
-        self.item_value.pack(side="left")
+        matching_target_discription2.pack(side="top", anchor="nw")
