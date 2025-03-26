@@ -41,12 +41,14 @@ class MainWindow(ctk.CTk):
         )
         matching_button_frame.pack(fill="x", padx=10, pady=10)
 
+        # マッチング実行説明
         ctk.CTkLabel(
             matching_button_frame,
             text="4. 「分別開始」ボタンを押すと通知方法が分別されます。",
             font=("Helvetica", 10),
         ).pack(side="top", anchor="nw")
 
+        # マッチング実行ボタン
         matching_button = ctk.CTkButton(
             matching_button_frame,
             text="分別開始",

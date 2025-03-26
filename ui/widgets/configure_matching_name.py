@@ -108,6 +108,8 @@ class ConfigureMatchingName(ctk.CTkFrame):
         enter_font = ctk.CTkFont(family="Helvetica", size=12)
 
         # マッチング項目名入力
+
+        # 氏名
         self.matching_name = ctk.CTkEntry(
             matching_item_frame,
             corner_radius=0,
@@ -121,6 +123,7 @@ class ConfigureMatchingName(ctk.CTkFrame):
         )
         self.matching_name.grid(row=1, column=1)
 
+        # 生年月日
         self.matching_birthday = ctk.CTkEntry(
             matching_item_frame,
             corner_radius=0,
@@ -134,6 +137,7 @@ class ConfigureMatchingName(ctk.CTkFrame):
         )
         self.matching_birthday.grid(row=1, column=2)
 
+        # シリアル番号
         self.matching_serial_number = ctk.CTkEntry(
             matching_item_frame,
             corner_radius=0,
@@ -147,6 +151,7 @@ class ConfigureMatchingName(ctk.CTkFrame):
         )
         self.matching_serial_number.grid(row=1, column=3)
 
+        # 管理コード
         self.matching_code = ctk.CTkEntry(
             matching_item_frame,
             corner_radius=0,
