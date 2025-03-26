@@ -2,6 +2,7 @@ import customtkinter as ctk
 from ui.sub_window import SubWindow
 from ui.widgets.select_csv_file import SelectCsvFile
 from ui.widgets.select_matching_item import SelectMatchingItem
+from ui.widgets.configure_matching_name import ConfigureMatchingName
 from logic.file_handler import open_csv
 
 
@@ -28,6 +29,16 @@ class MainWindow(ctk.CTk):
 
         # 2. マッチング対象選択
         slect_matching_item = SelectMatchingItem(self)
+
+        # 3. マッチング項目値入力
+        configure_matching_name = ConfigureMatchingName(self)
+
+        # クリック時にフォーカスを解除
+        self.bind_all("<Return>", self.remove_focus)
+
+    # フォーカスを解除するメソッド
+    def remove_focus(self, event):
+        self.focus_set()
 
     def open_sub_window(self):
         self.sub_win = SubWindow(self)

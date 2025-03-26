@@ -1,11 +1,11 @@
 import customtkinter as ctk
 
 
-# マッチング項目選択ウィジェット
+# マッチング項目選択
 class SelectMatchingItem(ctk.CTkFrame):
     def __init__(self, master):
         super().__init__(master, corner_radius=0, fg_color="transparent")
-        self.pack(fill="x")
+        self.pack(fill="x", pady=8)
 
         # 共通フォント
         default_font = ctk.CTkFont(family="Helvetica", size=10)
