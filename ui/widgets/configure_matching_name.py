@@ -1,4 +1,5 @@
 import customtkinter as ctk
+import config.colors as colors
 from config.fonts import get_fonts
 
 
@@ -115,7 +116,7 @@ class ConfigureMatchingName(ctk.CTkFrame):
             width=150,
             height=40,
             justify="center",
-            fg_color="#ddebf7",
+            fg_color=colors.input_color,
             border_color="gray",
         )
         self.matching_name.grid(row=1, column=1)
@@ -129,7 +130,7 @@ class ConfigureMatchingName(ctk.CTkFrame):
             width=150,
             height=40,
             justify="center",
-            fg_color="#ddebf7",
+            fg_color=colors.input_color,
             border_color="gray",
         )
         self.matching_birthday.grid(row=1, column=2)
@@ -143,7 +144,7 @@ class ConfigureMatchingName(ctk.CTkFrame):
             width=150,
             height=40,
             justify="center",
-            fg_color="#ddebf7",
+            fg_color=colors.input_color,
             border_color="gray",
         )
         self.matching_serial_number.grid(row=1, column=3)
@@ -157,7 +158,7 @@ class ConfigureMatchingName(ctk.CTkFrame):
             width=150,
             height=40,
             justify="center",
-            fg_color="#ddebf7",
+            fg_color=colors.input_color,
             border_color="gray",
         )
         self.matching_code.grid(row=1, column=4)

@@ -2,6 +2,7 @@
 *.pyc
 *.pyo
 __pycache__/
+output/
 
 # IDEやエディタの設定ファイル
 .vscode/

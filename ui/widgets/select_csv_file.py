@@ -1,4 +1,5 @@
 import customtkinter as ctk
+import config.colors as colors
 from config.fonts import get_fonts
 from logic.file_handler import open_csv
 
@@ -37,8 +38,8 @@ class SelectCsvFile(ctk.CTkFrame):
         # 利用登録者一覧CSV読み込みボタン
         button_open = ctk.CTkButton(
             user_list_csv_frame,
-            fg_color="#766b6b",
-            hover_color="#766b6b",
+            fg_color=colors.theme_color,
+            hover_color=colors.theme_color,
             text="利用者一覧CSV読み込み",
             text_color="white",
             font=fonts["title"],
@@ -60,7 +61,7 @@ class SelectCsvFile(ctk.CTkFrame):
         # 利用登録者一覧CSVパス
         self.user_list_csv_path = ctk.CTkEntry(
             user_list_csv_frame,
-            text_color="#6495ed",
+            text_color=colors.link_color,
         )
         self.user_list_csv_path.pack(side="left", fill="x", expand=True)
 
@@ -83,8 +84,8 @@ class SelectCsvFile(ctk.CTkFrame):
         # 全送付者リストCSV読み込みボタン
         button_open = ctk.CTkButton(
             address_list_csv_frame,
-            fg_color="#766b6b",
-            hover_color="#766b6b",
+            fg_color=colors.theme_color,
+            hover_color=colors.theme_color,
             text="全送付者リストCSV読み込み",
             text_color="white",
             font=fonts["title"],
@@ -106,7 +107,7 @@ class SelectCsvFile(ctk.CTkFrame):
         # 全送付者リストCSVパス
         self.address_list_csv_path = ctk.CTkEntry(
             address_list_csv_frame,
-            text_color="#6495ed",
+            text_color=colors.link_color,
         )
         self.address_list_csv_path.pack(side="left", fill="x", expand=True)
 

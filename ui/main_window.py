@@ -1,4 +1,5 @@
 import customtkinter as ctk
+import config.colors as colors
 from config.fonts import get_fonts
 from ui.sub_window import SubWindow
 from ui.widgets.select_csv_file import SelectCsvFile
@@ -15,7 +16,7 @@ class MainWindow(ctk.CTk):
         fonts = get_fonts()
 
         # ヘッダー
-        intro_frame = ctk.CTkFrame(self, fg_color="#766b6b", corner_radius=0)
+        intro_frame = ctk.CTkFrame(self, fg_color=colors.theme_color, corner_radius=0)
         intro_frame.pack(fill="x")
 
         intro_label = ctk.CTkLabel(
@@ -55,8 +56,8 @@ class MainWindow(ctk.CTk):
             matching_button_frame,
             text="分別開始",
             font=fonts["title"],
-            fg_color="#2fb22b",
-            hover_color="#2fb22b",
+            fg_color=colors.accent_color,
+            hover_color=colors.accent_color,
             text_color="white",
             command=self.execute_matching,
             width=300,
