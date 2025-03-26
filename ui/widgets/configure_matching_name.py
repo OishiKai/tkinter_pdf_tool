@@ -55,6 +55,7 @@ class ConfigureMatchingName(ctk.CTkFrame):
         )
         matching_item_frame.pack(fill="x", padx=20, pady=0)
 
+        # マッチング項目名のテーブル
         ctk.CTkLabel(
             matching_item_frame,
             text="項目名",
