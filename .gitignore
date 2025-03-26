@@ -1,0 +1,27 @@
+# Python bytecode files
+*.pyc
+*.pyo
+__pycache__/
+
+# IDEやエディタの設定ファイル
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Tkinterプロジェクト特有の一時ファイル（例: GUIのキャッシュや設定ファイル）
+*.log
+*.bak
+*.db
+
+# 環境設定ファイル（仮想環境を使用している場合）
+venv/
+env/
+
+# OS固有のファイル
+.DS_Store      # macOS
+Thumbs.db      # Windows
+
+# その他
+*.tgz
+*.zip

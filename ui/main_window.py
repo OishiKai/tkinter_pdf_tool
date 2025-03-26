@@ -1,22 +1,33 @@
 import customtkinter as ctk
 from ui.sub_window import SubWindow
+from ui.widgets.select_csv_file import SelectCsvFile
+from ui.widgets.configure_matching import ConfigureMatching
 from logic.file_handler import open_csv
+
 
 class MainWindow(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("メインウィンドウ")
-        self.geometry("500x300")
+        self.title("SLEP PDF作成ツール")
+        self.geometry("1000x800")
 
-        self.button_open = ctk.CTkButton(self, text="CSVを開く", command=self.open_file)
-        self.button_open.pack(pady=20)
+        # ヘッダー
+        intro_frame = ctk.CTkFrame(self, fg_color="#766b6b", corner_radius=0)
+        intro_frame.pack(fill="x")
 
-        self.button_sub = ctk.CTkButton(self, text="サブウィンドウを開く", command=self.open_sub_window)
-        self.button_sub.pack(pady=20)
+        intro_label = ctk.CTkLabel(
+            intro_frame,
+            text="Speed Letter Plus 通知方法判別ツール",
+            font=("Helvetica Bold", 12),
+            text_color="white",
+        )
+        intro_label.pack(side="left", padx=20, pady=4)
 
-    def open_file(self):
-        file_path = open_csv()
-        print(f"選択したファイル: {file_path}")
+        # 2種CSV読み込み
+        select_csv_file = SelectCsvFile(self)
+
+        # マッチング対象選択・項目値設定
+        configre_matching = ConfigureMatching(self)
 
     def open_sub_window(self):
         self.sub_win = SubWindow(self)
