@@ -42,6 +42,7 @@ class SelectMatchingItem(ctk.CTkFrame):
         )
         self.matching_target.set("氏名・生年月日")
         self.matching_target.pack(side="left")
+        self.matching_target.bind("<<ComboboxSelected>>", self.focus_set())
 
         # 注釈Frame
         matching_target_discription_frame = ctk.CTkFrame(

@@ -116,9 +116,11 @@ class SelectCsvFile(ctk.CTkFrame):
         file_path = open_csv()
         self.user_list_csv_path.delete(0, "end")
         self.user_list_csv_path.insert(0, file_path)
+        self.focus_set()
 
     # 全送付者リストCSVファイル選択
     def select_address_list_csv(self):
         file_path = open_csv()
         self.address_list_csv_path.delete(0, "end")
         self.address_list_csv_path.insert(0, file_path)
+        self.focus_set()

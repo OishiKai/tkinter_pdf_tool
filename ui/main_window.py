@@ -6,6 +6,7 @@ from ui.widgets.select_csv_file import SelectCsvFile
 from ui.widgets.select_matching_item import SelectMatchingItem
 from ui.widgets.configure_matching_name import ConfigureMatchingName
 from logic.file_handler import open_csv
+from logic.csv_matching import csv_matching
 
 
 class MainWindow(ctk.CTk):
@@ -95,8 +96,7 @@ class MainWindow(ctk.CTk):
         # csvファイルパス取得
         user_list_csv_path = self.select_csv_file.user_list_csv_path.get()
         address_list_csv_path = self.select_csv_file.address_list_csv_path.get()
-        print(user_list_csv_path)
-        print(address_list_csv_path)
+
         if not user_list_csv_path or not address_list_csv_path:
             self.error_message.configure(text="CSVファイルを選択してください")
             self.error_message_frame.pack(side="top", anchor="nw", padx=30)
@@ -106,8 +106,19 @@ class MainWindow(ctk.CTk):
 
         # マッチング項目取得
         matching_target = self.slect_matching_item.matching_target.get()
-        print(matching_target)
 
         # マッチング項目値取得
         matching_entry_map = self.configure_matching_name.matching_entry_map
-        print(matching_entry_map)
+
+        # マッチング実行
+        result = csv_matching(
+            user_list_csv_path=user_list_csv_path,
+            address_list_csv_path=address_list_csv_path,
+            matching_terget=matching_target,
+            matching_entry_map=matching_entry_map,
+        )
+
+        if isinstance(result, str):
+            self.error_message.configure(text=result)
+            self.error_message_frame.pack(side="top", anchor="nw", padx=30)
+            return
