@@ -21,10 +21,9 @@ class CSVViewer(ctk.CTkFrame):
 
         # ttk のスタイルを設定（フォントサイズを統一）
         style = ttk.Style()
-        style.configure("Treeview", font=font["description"])  # 本体のフォント
+        style.configure("Treeview", font=("Meiryo UI", 10))  # 本体のフォント
         style.configure(
-            "Treeview.Heading",
-            font=(font["title"]),
+            "Treeview.Heading", font=("Meiryo UI", 12, "bold")
         )  # ヘッダーのフォント
 
         # Treeviewウィジェットを追加（テーブル表示用）
