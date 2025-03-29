@@ -37,9 +37,11 @@ class MatchingResultWindow(ctk.CTkToplevel):
             command=self.backWindow,
         ).pack(side="top", anchor="nw", padx=10, pady=10)
 
-        # 結果概要
+        # 分別結果概要
         self.summary_frame = MatchingSummary(self, result)
-        self.view = CSVViewer(self)
+
+        # 分別結果CSV表示
+        self.view = CSVViewer(self, result)
 
     def backWindow(self):
         self.destroy()

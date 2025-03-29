@@ -20,7 +20,7 @@ class ScrollableFrame(ctk.CTkFrame):
 
         self.scrollable_frame = ctk.CTkFrame(self.canvas)
         self.frame_id = self.canvas.create_window(
-            (0, 0), window=self.scrollable_frame, anchor="nw"
+            (0, 10000), window=self.scrollable_frame, anchor="nw"
         )
 
         self.canvas.configure(
