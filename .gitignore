@@ -26,3 +26,5 @@ Thumbs.db      # Windows
 # その他
 *.tgz
 *.zip
+
+.previous_matching_config.json

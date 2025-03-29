@@ -2,6 +2,7 @@ import customtkinter as ctk
 import config.colors as colors
 from config.fonts import get_fonts
 from logic.file_handler import open_csv
+import logic.file_handler as file_handler
 
 
 # 利用登録者、全送付者リストCSV読み込み
@@ -110,6 +111,17 @@ class SelectCsvFile(ctk.CTkFrame):
             text_color=colors.link_color,
         )
         self.address_list_csv_path.pack(side="left", fill="x", expand=True)
+
+        # 過去のマッチング設定を読み込む
+        previous_matching_config = file_handler.load_matching_config_from_json()
+        if previous_matching_config:
+            # 過去のマッチング設定が存在する場合、CSVパスをセット
+            self.user_list_csv_path.insert(
+                0, previous_matching_config["user_list_csv_path"]
+            )
+            self.address_list_csv_path.insert(
+                0, previous_matching_config["address_list_csv_path"]
+            )
 
     # 利用登録者一覧CSVファイル選択
     def select_user_list_csv(self):

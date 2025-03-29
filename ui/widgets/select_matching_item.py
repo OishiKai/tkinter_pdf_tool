@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from config.fonts import get_fonts
 import config.matching_targets as matching_targets
+import logic.file_handler as file_handler
 
 
 # マッチング項目選択
@@ -40,7 +41,7 @@ class SelectMatchingItem(ctk.CTkFrame):
             font=fonts["title"],
             width=200,
         )
-        self.matching_target.set("氏名・生年月日")
+        self.matching_target.set(matching_targets.matching_targets[0])
         self.matching_target.pack(side="left")
         self.matching_target.bind("<<ComboboxSelected>>", self.focus_set())
 
@@ -69,3 +70,12 @@ class SelectMatchingItem(ctk.CTkFrame):
             height=0,
         )
         matching_target_discription2.pack(side="top", anchor="nw")
+
+        previous_matching_config = file_handler.load_matching_config_from_json()
+        if previous_matching_config:
+            # 過去のマッチング設定を読み込む
+            matching_target = previous_matching_config["matching_terget"]
+            if matching_target in matching_targets.matching_targets:
+                self.matching_target.set(matching_target)
+            else:
+                self.matching_target.set(matching_targets.matching_targets[0])

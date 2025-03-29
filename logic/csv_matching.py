@@ -1,6 +1,7 @@
 import csv
 from dateutil import parser
 import logic.date as date_logic
+import logic.file_handler as file_handler
 
 
 # CSVマッチング処理
@@ -12,10 +13,10 @@ def csv_matching(
 ):
 
     # (※1)や(※2)など、マッチング対象名の「(」以降を削除
-    matching_terget = matching_terget.split("(")[0]
+    matching_terget_formatt = matching_terget.split("(")[0]
 
     # 「・」で分割
-    matching_terget_list = matching_terget.split("・")
+    matching_terget_list = matching_terget_formatt.split("・")
 
     # matching_entry_map から、matching_terget_list に含まれるキーのみ取得
     matching_entry_map = {
@@ -29,6 +30,15 @@ def csv_matching(
         key: value.get() if value else "" for key, value in matching_entry_map.items()
     }
     print(f"matching_value_map: {matching_value_map}")
+
+    # 今回のマッチング設定をJSONファイルに保存
+    conf = {
+        "user_list_csv_path": user_list_csv_path,
+        "address_list_csv_path": address_list_csv_path,
+        "matching_terget": matching_terget,
+        "matching_value_map": matching_value_map,
+    }
+    file_handler.save_matching_config_to_json(conf)
 
     try:
         # CSVファイルを開く

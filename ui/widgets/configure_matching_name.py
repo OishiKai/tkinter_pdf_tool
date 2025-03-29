@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import config.colors as colors
 import config.matching_targets as matching_targets
+import logic.file_handler as file_handler
 from config.fonts import get_fonts
 
 
@@ -104,3 +105,12 @@ class ConfigureMatchingName(ctk.CTkFrame):
             )
             entry.grid(row=1, column=matching_targets.matching_items.index(item) + 1)
             self.matching_entry_map[item] = entry
+
+        # 過去のマッチング設定を読み込む
+        previous_matching_config = file_handler.load_matching_config_from_json()
+        if previous_matching_config:
+            # 過去のマッチング設定を読み込む
+            previous_map = previous_matching_config["matching_value_map"]
+            for item, entry in self.matching_entry_map.items():
+                if item in previous_map:
+                    entry.insert(0, previous_map[item])
