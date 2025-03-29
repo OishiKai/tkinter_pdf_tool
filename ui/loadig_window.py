@@ -12,8 +12,28 @@ class LoadingWindow(ctk.CTkToplevel):
         self.geometry("200x200")
         self.resizable(False, False)
         self.grab_set()  # メインウィンドウの操作をブロック
+
+        # 親ウィンドウの中央に配置する
+        self.center_window(parent)
+
         self.label = ctk.CTkLabel(self, text=message, font=font["title"])
         self.label.pack(expand=True, padx=10, pady=20)
+
+    def center_window(self, parent):
+        """親ウィンドウの中央に配置"""
+        self.update_idletasks()  # ウィンドウサイズの正確な計算のために更新
+        parent_x = parent.winfo_x()
+        parent_y = parent.winfo_y()
+        parent_width = parent.winfo_width()
+        parent_height = parent.winfo_height()
+
+        window_width = 200
+        window_height = 100
+
+        pos_x = parent_x + (parent_width - window_width) // 2
+        pos_y = parent_y + (parent_height - window_height) // 2
+
+        self.geometry(f"{window_width}x{window_height}+{pos_x}+{pos_y}")
 
     def close(self):
         if self.winfo_exists():  # ウィンドウが存在する場合のみ破棄

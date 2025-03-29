@@ -53,10 +53,10 @@ class ScrollableFrame(ctk.CTkFrame):
 
     def mouse_y_scroll(self, event):
         """縦スクロール（トラックパッド対応）"""
-        if event.state == 0:  # 縦スクロール
+        if event.state == 0 or event.state == 8:  # 縦スクロール
             direction = -1 if event.delta > 0 else 1
             self.canvas.yview_scroll(direction, "units")
-        elif event.state == 1:  # 横スクロール
+        elif event.state == 1 or event.state == 9:  # 横スクロール
             direction = -1 if event.delta > 0 else 1
             self.canvas.xview_scroll(direction, "units")
 
