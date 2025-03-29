@@ -16,6 +16,9 @@ class LoadingWindow(ctk.CTkToplevel):
         # 親ウィンドウの中央に配置する
         self.center_window(parent)
 
+        # 閉じるボタン（×）を無効化
+        self.protocol("WM_DELETE_WINDOW", self.disable_close)
+
         self.label = ctk.CTkLabel(self, text=message, font=font["title"])
         self.label.pack(expand=True, padx=10, pady=20)
 
@@ -34,6 +37,10 @@ class LoadingWindow(ctk.CTkToplevel):
         pos_y = parent_y + (parent_height - window_height) // 2
 
         self.geometry(f"{window_width}x{window_height}+{pos_x}+{pos_y}")
+
+    def disable_close(self):
+        """閉じるボタンを無効化（何もしない）"""
+        pass
 
     def close(self):
         if self.winfo_exists():  # ウィンドウが存在する場合のみ破棄
