@@ -19,9 +19,9 @@ class CSVViewer(ctk.CTkFrame):
 
         # ttk のスタイルを設定（フォントサイズを統一）
         style = ttk.Style()
-        style.configure("Treeview", font=("Arial", 12))  # 本体のフォント
+        style.configure("Treeview", font=("Arial", 10))  # 本体のフォント
         style.configure(
-            "Treeview.Heading", font=("Arial", 14, "bold")
+            "Treeview.Heading", font=("Arial", 12, "bold")
         )  # ヘッダーのフォント
 
         # Treeviewウィジェットを追加（テーブル表示用）
@@ -45,7 +45,10 @@ class CSVViewer(ctk.CTkFrame):
         for header in headers:
             self.tree.heading(header, text=header)  # ヘッダー名を設定
             self.tree.column(
-                header, width=fixed_column_width, anchor="center"
+                header,
+                width=fixed_column_width,
+                anchor="center",
+                stretch=tk.NO,
             )  # 列幅固定
 
         # データを挿入（古いデータは削除）
