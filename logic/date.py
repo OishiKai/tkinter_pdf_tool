@@ -41,11 +41,11 @@ def dete_format_rows(rows, date_format):
     for row in rows:
         formatted_row = []
         for value in row:
-            try:
+            if len(value) > 4:
                 # 日付を正規化
                 normalized_date = normalize_date(value, date_format)
                 formatted_row.append(normalized_date)
-            except ValueError:
+            else:
                 formatted_row.append(value)
         formatted_rows.append(formatted_row)
     return formatted_rows

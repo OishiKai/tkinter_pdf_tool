@@ -32,8 +32,8 @@ def csv_matching(
 
     try:
         # CSVファイル (Shift-JIS) を開く
-        with open(user_list_csv_path, "r", encoding="cp932") as user_file, open(
-            address_list_csv_path, "r", encoding="cp932"
+        with open(user_list_csv_path, "r", encoding="utf-8") as user_file, open(
+            address_list_csv_path, "r", encoding="utf-8"
         ) as address_file:
 
             # CSVファイルを読み込む
@@ -80,14 +80,16 @@ def csv_matching(
                 for row in address_list_csv
             ]
 
+            # 後で戻すため、全送付者リストCSVの日付フォーマットを保持しておく
+            address_csv_date_format = ""
+
             # 「生年月日」が比較対象の場合、日付のフォーマットを統一
             if "生年月日" in matching_terget_list and address_list_csv_target_values:
-                # 後で戻すため、全送付者リストCSVの日付フォーマットを保持しておく
-                address_csv_date_format = ""
                 first_row = address_list_csv_target_values[0]
                 for value in first_row:
                     try:
                         parser.parse(value, dayfirst=False, yearfirst=True)
+                        # 日付フォーマットを取得
                         address_csv_date_format = date_logic.get_date_format(value)
                     except ValueError:
                         pass
@@ -228,7 +230,7 @@ def search_csv(csv_file, conditions):
     result = []
 
     # CSVファイルを開いて読み込む
-    with open(csv_file, mode="r", encoding="cp932") as file:
+    with open(csv_file, mode="r", encoding="utf-8") as file:
         reader = csv.DictReader(file)
 
         # 各レコードを確認して条件をすべて満たすものを検索
