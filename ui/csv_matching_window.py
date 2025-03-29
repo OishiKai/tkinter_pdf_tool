@@ -2,6 +2,7 @@ import customtkinter as ctk
 import config.colors as colors
 from config.fonts import get_fonts
 from ui.matching_result_window import MatchingResultWindow
+from ui.wid import LoadingWindow
 from ui.widgets.select_csv_file import SelectCsvFile
 from ui.widgets.select_matching_item import SelectMatchingItem
 from ui.widgets.configure_matching_name import ConfigureMatchingName
@@ -110,6 +111,7 @@ class CsvMatchingWindow(ctk.CTk):
         # マッチング項目値取得
         matching_entry_map = self.configure_matching_name.matching_entry_map
 
+        loading_window = LoadingWindow(self)
         # マッチング実行
         result = csv_matching(
             user_list_csv_path=user_list_csv_path,
@@ -117,6 +119,8 @@ class CsvMatchingWindow(ctk.CTk):
             matching_terget=matching_target,
             matching_entry_map=matching_entry_map,
         )
+
+        loading_window.destroy()
 
         if isinstance(result, str):
             self.error_message.configure(text=result)
