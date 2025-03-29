@@ -10,14 +10,6 @@ class CSVViewer(ctk.CTkFrame):
         super().__init__(master, corner_radius=0)
         self.pack(fill="both", expand=True, pady=20)
 
-        top_frame = ctk.CTkFrame(self)
-        top_frame.pack(fill="x", padx=10)
-
-        self.load_button = ctk.CTkButton(
-            top_frame, text="CSVを開く", command=self.load_csv
-        )
-        self.load_button.pack(side="left", padx=10, pady=5)
-
         self.scrollable_frame = ScrollableFrame(self)
         self.scrollable_frame.pack(fill="both", expand=True, padx=10, pady=10)
 

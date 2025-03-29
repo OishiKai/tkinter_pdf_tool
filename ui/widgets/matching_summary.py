@@ -5,7 +5,7 @@ from config.fonts import get_fonts
 
 # CSVマッチング概要表示
 class MatchingSummary(ctk.CTkFrame):
-    def __init__(self, master):
+    def __init__(self, master, result):
         super().__init__(master, corner_radius=0, fg_color="transparent")
         self.pack(fill="x")
         fonts = get_fonts()
@@ -39,6 +39,10 @@ class MatchingSummary(ctk.CTkFrame):
         )
         all_summary_frame.pack(side="top", anchor="nw", padx=20)
 
+        summary = "OK"
+        if len(result["multiple_matches"]) > 0:
+            summary = "NG"
+
         # 結果概要のテーブル
         ctk.CTkLabel(
             all_summary_frame,
@@ -50,7 +54,7 @@ class MatchingSummary(ctk.CTkFrame):
         ).grid(row=0, column=0)
         self.all_summary = ctk.CTkLabel(
             all_summary_frame,
-            text="OK",
+            text=summary,
             width=100,
             font=fonts["default"],
             fg_color="lightgray",
@@ -89,7 +93,7 @@ class MatchingSummary(ctk.CTkFrame):
         ).grid(row=2, column=0)
         ctk.CTkLabel(
             all_summary_frame,
-            text="100000",
+            text=len(result["one_match"]),
             width=100,
             font=fonts["default"],
             fg_color="lightgray",
@@ -106,7 +110,7 @@ class MatchingSummary(ctk.CTkFrame):
         ).grid(row=3, column=0)
         ctk.CTkLabel(
             all_summary_frame,
-            text="100000",
+            text=len(result["no_match"]),
             width=100,
             font=fonts["default"],
             fg_color="lightgray",
@@ -123,7 +127,7 @@ class MatchingSummary(ctk.CTkFrame):
         ).grid(row=4, column=0)
         ctk.CTkLabel(
             all_summary_frame,
-            text="100000",
+            text=len(result["multiple_matches"]),
             width=100,
             font=fonts["default"],
             fg_color="lightgray",

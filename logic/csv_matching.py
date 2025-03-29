@@ -213,18 +213,16 @@ def csv_matching(
                 )
                 if isinstance(search_result, list):
                     multiple_matches_records.append(search_result[0])
+
             # 結果をまとめる
-            result = {
+            return {
+                "header": address_list_csv_header,
                 "no_match": no_match_records,
                 "one_match": one_match_records,
                 "multiple_matches": multiple_matches_records,
             }
-            print(f"一致しなかったレコード: {no_match_records}")
-            print(f"1件一致したレコード: {one_match_records}")
-            print(f"2件以上一致したレコード: {multiple_matches_records}")
 
-    # 結果を返す
-
+    # 例外処理
     except FileNotFoundError:
         return "CSVファイルが見つかりません"
     except csv.Error:
