@@ -17,6 +17,13 @@ class CSVViewer(ctk.CTkFrame):
         )
         self.load_button.pack(side="left", padx=10, pady=5)
 
+        # ttk のスタイルを設定（フォントサイズを統一）
+        style = ttk.Style()
+        style.configure("Treeview", font=("Arial", 12))  # 本体のフォント
+        style.configure(
+            "Treeview.Heading", font=("Arial", 14, "bold")
+        )  # ヘッダーのフォント
+
         # Treeviewウィジェットを追加（テーブル表示用）
         self.tree = ttk.Treeview(self, show="headings")  # ヘッダーを表示
         self.tree.pack(fill="both", expand=True, padx=10, pady=10)
@@ -25,8 +32,7 @@ class CSVViewer(ctk.CTkFrame):
         self.scroll_y = ttk.Scrollbar(self, orient="vertical", command=self.tree.yview)
         self.tree.configure(yscroll=self.scroll_y.set)
         self.scroll_y.pack(side="right", fill="y")
-
-        self.after(100, self.setup_csv)  # 初期化後にCSVをセットアップ
+        self.after(100, self.setup_csv)
 
     def setup_csv(self):
         headers = self.result["header"]
@@ -34,9 +40,13 @@ class CSVViewer(ctk.CTkFrame):
 
         # ヘッダーの設定
         self.tree["columns"] = headers
+        fixed_column_width = 120  # 列の幅を固定
+
         for header in headers:
             self.tree.heading(header, text=header)  # ヘッダー名を設定
-            self.tree.column(header, width=100, anchor="center")  # カラム幅を設定
+            self.tree.column(
+                header, width=fixed_column_width, anchor="center"
+            )  # 列幅固定
 
         # データを挿入（古いデータは削除）
         self.tree.delete(*self.tree.get_children())  # 既存データをクリア
