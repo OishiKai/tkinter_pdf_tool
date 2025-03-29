@@ -127,3 +127,8 @@ class CsvMatchingWindow(ctk.CTk):
         sub_window = MatchingResultWindow(self, result)
         sub_window.grab_set()
         sub_window.focus_set()
+        # このウィンドウを無効化
+        self.withdraw()
+        self.wait_window(sub_window)
+        # サブウィンドウが閉じられたらこのウィンドウを再表示
+        self.deiconify()

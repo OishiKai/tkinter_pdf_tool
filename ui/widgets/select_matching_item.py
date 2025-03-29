@@ -40,6 +40,7 @@ class SelectMatchingItem(ctk.CTkFrame):
             values=matching_targets.matching_targets,
             font=fonts["title"],
             width=200,
+            state="readonly",
         )
         self.matching_target.set(matching_targets.matching_targets[0])
         self.matching_target.pack(side="left")
