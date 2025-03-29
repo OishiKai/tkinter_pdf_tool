@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import config.fonts as fonts
 import customtkinter as ctk
+import config.colors as colors
 
 
 class CSVViewer(ctk.CTkFrame):
@@ -14,10 +15,25 @@ class CSVViewer(ctk.CTkFrame):
         top_frame = ctk.CTkFrame(self, fg_color="transparent", corner_radius=0)
         top_frame.pack(fill="x", padx=10)
 
-        self.load_button = ctk.CTkButton(
-            top_frame, text="郵送対象者を表示", command=self.setup_csv
+        self.load_digital_button = ctk.CTkButton(
+            top_frame,
+            text="デジタル通知対象を表示",
+            text_color="white",
+            fg_color=colors.link_color,
+            hover_color=colors.link_color,
+            command=self.show_digital_target,
         )
-        self.load_button.pack(side="left", padx=10, pady=5)
+        self.load_digital_button.pack(side="left", padx=10, pady=5)
+
+        self.load_postal_button = ctk.CTkButton(
+            top_frame,
+            text="郵送通知対象を表示",
+            text_color="white",
+            fg_color=colors.accent_color,
+            hover_color=colors.accent_color,
+            command=self.show_postal_target,
+        )
+        self.load_postal_button.pack(side="left", padx=10, pady=5)
 
         # ttk のスタイルを設定（フォントサイズを統一）
         style = ttk.Style()
@@ -37,11 +53,10 @@ class CSVViewer(ctk.CTkFrame):
         self.tree.configure(xscrollcommand=self.x_scrollbar.set)
         self.x_scrollbar.pack(fill="x", side="bottom")
 
-        self.after(100, self.setup_csv)
+        self.show_digital_target()
 
-    def setup_csv(self):
+    def setup_csv(self, csv_data):
         headers = self.result["header"]
-        no_matches = self.result["no_match"]
 
         # ヘッダーの設定
         self.tree["columns"] = headers
@@ -58,5 +73,13 @@ class CSVViewer(ctk.CTkFrame):
 
         # データを挿入（古いデータは削除）
         self.tree.delete(*self.tree.get_children())  # 既存データをクリア
-        for row_data in no_matches:
+        for row_data in csv_data:
             self.tree.insert("", "end", values=list(row_data.values()))  # 行を追加
+
+    # デジタル通知対象者を表示
+    def show_digital_target(self):
+        self.setup_csv(self.result["one_match"])
+
+    # 郵送対象者を表示
+    def show_postal_target(self):
+        self.setup_csv(self.result["no_match"])
