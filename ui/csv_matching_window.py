@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import config.colors as colors
 from config.fonts import get_fonts
-from ui.sub_window import SubWindow
+from ui.matching_result_window import MatchingResultWindow
 from ui.widgets.select_csv_file import SelectCsvFile
 from ui.widgets.select_matching_item import SelectMatchingItem
 from ui.widgets.configure_matching_name import ConfigureMatchingName
@@ -9,7 +9,7 @@ from logic.file_handler import open_csv
 from logic.csv_matching import csv_matching
 
 
-class MainWindow(ctk.CTk):
+class CsvMatchingWindow(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("SLEP PDF作成ツール")
@@ -122,3 +122,8 @@ class MainWindow(ctk.CTk):
             self.error_message.configure(text=result)
             self.error_message_frame.pack(side="top", anchor="nw", padx=30)
             return
+
+        # マッチング結果を表示するサブウィンドウを開く
+        sub_window = MatchingResultWindow(self, result)
+        sub_window.grab_set()
+        sub_window.focus_set()

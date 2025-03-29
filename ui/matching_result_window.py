@@ -1,7 +1,8 @@
 import customtkinter as ctk
 
-class SubWindow(ctk.CTkToplevel):
-    def __init__(self, master):
+
+class MatchingResultWindow(ctk.CTkToplevel):
+    def __init__(self, master, result):
         super().__init__(master)
         self.title("サブウィンドウ")
         self.geometry("300x200")

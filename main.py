@@ -1,5 +1,5 @@
-from ui.main_window import MainWindow
+from ui.csv_matching_window import CsvMatchingWindow
 
 if __name__ == "__main__":
-    app = MainWindow()
+    app = CsvMatchingWindow()
     app.mainloop()
