@@ -1,8 +1,6 @@
-import customtkinter as ctk
 import tkinter as tk
-from tkinter import filedialog
-import csv
-from ui.widgets.scrollable_frame import ScrollableFrame
+from tkinter import ttk
+import customtkinter as ctk
 
 
 class CSVViewer(ctk.CTkFrame):
@@ -19,54 +17,28 @@ class CSVViewer(ctk.CTkFrame):
         )
         self.load_button.pack(side="left", padx=10, pady=5)
 
-        self.scrollable_frame = ScrollableFrame(self)
-        self.scrollable_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        # Treeviewウィジェットを追加（テーブル表示用）
+        self.tree = ttk.Treeview(self, show="headings")  # ヘッダーを表示
+        self.tree.pack(fill="both", expand=True, padx=10, pady=10)
 
-        self.after(10, self.setup_csv)
+        # スクロールバーを追加
+        self.scroll_y = ttk.Scrollbar(self, orient="vertical", command=self.tree.yview)
+        self.tree.configure(yscroll=self.scroll_y.set)
+        self.scroll_y.pack(side="right", fill="y")
+
+        self.after(100, self.setup_csv)  # 初期化後にCSVをセットアップ
 
     def setup_csv(self):
-        # 既存のウィジェットをクリア
-        for widget in self.scrollable_frame.scrollable_frame.winfo_children():
-            widget.destroy()
-
         headers = self.result["header"]
         no_matches = self.result["no_match"]
-        one_matches = self.result["one_match"]
-        multiple_matches = self.result["multiple_matches"]
 
-        # ヘッダー行を作成
-        for col, header in enumerate(headers):
-            frame = ctk.CTkFrame(
-                self.scrollable_frame.scrollable_frame,
-                fg_color="gray",
-                corner_radius=0,
-            )
-            frame.grid(row=0, column=col, padx=1, pady=1, sticky="nsew")
+        # ヘッダーの設定
+        self.tree["columns"] = headers
+        for header in headers:
+            self.tree.heading(header, text=header)  # ヘッダー名を設定
+            self.tree.column(header, width=100, anchor="center")  # カラム幅を設定
 
-            label = ctk.CTkLabel(
-                frame,
-                text=header,
-                text_color="white",
-                fg_color="gray",
-            )
-            label.pack(fill="both", expand=True, padx=5)
-            label.bind("<MouseWheel>", self.scrollable_frame.mouse_y_scroll)
-
-        # データ行を作成
-        for row, row_data in enumerate(no_matches, start=1):
-            for col, cell in enumerate(row_data.values()):
-                frame = ctk.CTkFrame(
-                    self.scrollable_frame.scrollable_frame,
-                    corner_radius=0,
-                )
-                frame.grid(row=row, column=col, padx=1, pady=1, sticky="nsew")
-
-                label = ctk.CTkLabel(frame, text=cell)
-                label.pack(fill="both", expand=True, padx=5)
-                label.bind("<MouseWheel>", self.scrollable_frame.mouse_y_scroll)
-
-        # カラム幅を自動調整
-        for col in range(len(headers)):
-            self.scrollable_frame.scrollable_frame.grid_columnconfigure(col, weight=1)
-
-        self.scrollable_frame.update_scroll_region()
+        # データを挿入（古いデータは削除）
+        self.tree.delete(*self.tree.get_children())  # 既存データをクリア
+        for row_data in no_matches:
+            self.tree.insert("", "end", values=list(row_data.values()))  # 行を追加
