@@ -2,6 +2,7 @@ import customtkinter as ctk
 from config import colors
 from config.fonts import get_fonts
 from ui.widgets.matching_summary import MatchingSummary
+from ui.widgets.csv_viewer import CSVViewer
 
 
 class MatchingResultWindow(ctk.CTkToplevel):
@@ -38,6 +39,7 @@ class MatchingResultWindow(ctk.CTkToplevel):
 
         # 結果概要
         self.summary_frame = MatchingSummary(self)
+        self.view = CSVViewer(self)
 
     def backWindow(self):
         self.destroy()
