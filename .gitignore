@@ -28,3 +28,4 @@ Thumbs.db      # Windows
 *.zip
 
 .previous_matching_config.json
+assets/test_csv/
