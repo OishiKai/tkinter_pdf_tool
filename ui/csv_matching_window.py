@@ -1,8 +1,9 @@
 import customtkinter as ctk
+import threading
 import config.colors as colors
 from config.fonts import get_fonts
 from ui.matching_result_window import MatchingResultWindow
-from ui.wid import LoadingWindow
+from ui.loadig_window import LoadingWindow
 from ui.widgets.select_csv_file import SelectCsvFile
 from ui.widgets.select_matching_item import SelectMatchingItem
 from ui.widgets.configure_matching_name import ConfigureMatchingName
@@ -61,7 +62,7 @@ class CsvMatchingWindow(ctk.CTk):
             fg_color=colors.accent_color,
             hover_color=colors.accent_color,
             text_color="white",
-            command=self.execute_matching,
+            command=self.show_loading_window,
             width=300,
         )
         matching_button.pack(side="top", anchor="nw", padx=20)
@@ -91,7 +92,7 @@ class CsvMatchingWindow(ctk.CTk):
         self.focus_set()
 
     # マッチング実行
-    def execute_matching(self):
+    def execute_matching(self, loading_window):
         print("マッチング実行")
 
         # csvファイルパス取得
@@ -111,7 +112,6 @@ class CsvMatchingWindow(ctk.CTk):
         # マッチング項目値取得
         matching_entry_map = self.configure_matching_name.matching_entry_map
 
-        loading_window = LoadingWindow(self)
         # マッチング実行
         result = csv_matching(
             user_list_csv_path=user_list_csv_path,
@@ -120,7 +120,7 @@ class CsvMatchingWindow(ctk.CTk):
             matching_entry_map=matching_entry_map,
         )
 
-        loading_window.destroy()
+        loading_window.close()
 
         if isinstance(result, str):
             self.error_message.configure(text=result)
@@ -136,3 +136,14 @@ class CsvMatchingWindow(ctk.CTk):
         self.wait_window(sub_window)
         # サブウィンドウが閉じられたらこのウィンドウを再表示
         self.deiconify()
+
+    def show_loading_window(self):
+        # ローディングウィンドウを表示
+        loading_window = LoadingWindow(self)
+
+        # ローディングウィンドウを閉じるまでメインウィンドウを無効化してマッチング開始
+        threading.Thread(
+            target=self.execute_matching,
+            args=(loading_window,),
+            daemon=True,
+        ).start()
