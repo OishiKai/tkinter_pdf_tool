@@ -31,7 +31,7 @@ def csv_matching(
     print(f"matching_value_map: {matching_value_map}")
 
     try:
-        # CSVファイル (Shift-JIS) を開く
+        # CSVファイルを開く
         with open(user_list_csv_path, "r", encoding="utf-8") as user_file, open(
             address_list_csv_path, "r", encoding="utf-8"
         ) as address_file:

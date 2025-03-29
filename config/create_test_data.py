@@ -19,12 +19,16 @@ def create_test_csv():
         ["佐藤 次郎", "19950315", "北海道札幌市", "060-1234-5678", "8905", "D114"],
     ]
 
-    # CSVファイルを Shift-JIS (cp932) で保存
-    with open("user_list.csv", "w", newline="", encoding="cp932") as f:
+    # CSVファイルを作成
+    with open(
+        "./assets/test_csv/利用登録者リスト.csv", "w", newline="", encoding="utf-8"
+    ) as f:
         writer = csv.writer(f)
         writer.writerows(user_data)
 
-    with open("address_list.csv", "w", newline="", encoding="cp932") as f:
+    with open(
+        "./assets/test_csv/全送付者リスト.csv", "w", newline="", encoding="utf-8"
+    ) as f:
         writer = csv.writer(f)
         writer.writerows(address_data)
 
