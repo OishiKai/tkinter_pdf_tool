@@ -2,7 +2,7 @@ import customtkinter as ctk
 import threading
 import config.colors as colors
 from config.fonts import get_fonts
-from ui.matching_result_window import MatchingResultWindow
+from ui.matching_result_window import MatchingResultPage
 from ui.loadig_window import LoadingWindow
 from ui.widgets.select_csv_file import SelectCsvFile
 from ui.widgets.select_matching_item import SelectMatchingItem
@@ -11,11 +11,9 @@ from logic.file_handler import open_csv
 from logic.csv_matching import csv_matching
 
 
-class CsvMatchingWindow(ctk.CTk):
-    def __init__(self):
-        super().__init__()
-        self.title("SLEP PDF作成ツール")
-        self.geometry("1000x800")
+class CsvMatchingPage(ctk.CTkFrame):
+    def __init__(self, parent):
+        super().__init__(parent)
         fonts = get_fonts()
 
         # ヘッダー
@@ -62,7 +60,7 @@ class CsvMatchingWindow(ctk.CTk):
             fg_color=colors.accent_color,
             hover_color=colors.accent_color,
             text_color="white",
-            command=self.show_loading_window,
+            command=lambda: self.execute_matching(parent),
             width=300,
         )
         matching_button.pack(side="top", anchor="nw", padx=20)
@@ -84,15 +82,8 @@ class CsvMatchingWindow(ctk.CTk):
         )
         self.error_message.pack(side="top", anchor="nw", padx=20)
 
-        # Enterでフォーカスを解除
-        self.bind_all("<Return>", self.remove_focus)
-
-    # フォーカスを解除するメソッド
-    def remove_focus(self, event):
-        self.focus_set()
-
     # マッチング実行
-    def execute_matching(self, loading_window):
+    def execute_matching(self, parent):
         print("マッチング実行")
 
         # csvファイルパス取得
@@ -120,33 +111,23 @@ class CsvMatchingWindow(ctk.CTk):
             matching_entry_map=matching_entry_map,
         )
 
-        loading_window.close()
-
         if isinstance(result, str):
             self.error_message.configure(text=result)
             self.error_message_frame.pack(side="top", anchor="nw", padx=30)
             return
 
-        # マッチング結果を表示するサブウィンドウを開く
-        sub_window = MatchingResultWindow(self, result)
+        parent.show_frame(
+            MatchingResultPage.__name__,
+            result=result,
+        )
 
-        # このウィンドウを無効化
-        self.withdraw()
-        self.wait_window(sub_window)
-        # サブウィンドウが閉じられたらこのウィンドウを再表示
-        self.deiconify()
+    # def show_loading_window(self):
+    #     # ローディングウィンドウを表示
+    #     loading_window = LoadingWindow(self)
 
-        # サブウィンドウを最前面に表示
-        sub_window.grab_set()
-        sub_window.focus_set()
-
-    def show_loading_window(self):
-        # ローディングウィンドウを表示
-        loading_window = LoadingWindow(self)
-
-        # ローディングウィンドウを閉じるまでメインウィンドウを無効化してマッチング開始
-        threading.Thread(
-            target=self.execute_matching,
-            args=(loading_window,),
-            daemon=True,
-        ).start()
+    #     # ローディングウィンドウを閉じるまでメインウィンドウを無効化してマッチング開始
+    #     threading.Thread(
+    #         target=self.execute_matching,
+    #         args=(loading_window,),
+    #         daemon=True,
+    #     ).start()

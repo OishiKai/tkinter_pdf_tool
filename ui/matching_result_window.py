@@ -5,11 +5,9 @@ from ui.widgets.matching_summary import MatchingSummary
 from ui.widgets.csv_viewer import CSVViewer
 
 
-class MatchingResultWindow(ctk.CTkToplevel):
-    def __init__(self, master, result):
-        super().__init__(master)
-        self.title("SLEP PDF作成ツール")
-        self.geometry("1000x800")
+class MatchingResultPage(ctk.CTkFrame):
+    def __init__(self, parent, result):
+        super().__init__(parent)
         fonts = get_fonts()
 
         # ヘッダー
@@ -34,7 +32,7 @@ class MatchingResultWindow(ctk.CTkToplevel):
             fg_color=colors.theme_color,
             hover_color=colors.theme_color,
             font=fonts["title"],
-            command=self.backWindow,
+            command=lambda: parent.show_frame("CsvCsvMatchingPage"),
         ).pack(side="top", anchor="nw", padx=10, pady=10)
 
         # 分別結果概要
