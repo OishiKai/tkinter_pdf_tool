@@ -32,7 +32,7 @@ class MatchingResultPage(ctk.CTkFrame):
             fg_color=colors.theme_color,
             hover_color=colors.theme_color,
             font=fonts["title"],
-            command=lambda: parent.show_frame("CsvCsvMatchingPage"),
+            command=lambda: parent.back_frame("CsvCsvMatchingPage"),
         ).pack(side="top", anchor="nw", padx=10, pady=10)
 
         # 分別結果概要
