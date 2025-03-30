@@ -60,7 +60,7 @@ class CsvMatchingPage(ctk.CTkFrame):
             fg_color=colors.accent_color,
             hover_color=colors.accent_color,
             text_color="white",
-            command=lambda: self.execute_matching(parent),
+            command=lambda: self.show_loading_window(parent),
             width=300,
         )
         matching_button.pack(side="top", anchor="nw", padx=20)
@@ -83,7 +83,7 @@ class CsvMatchingPage(ctk.CTkFrame):
         self.error_message.pack(side="top", anchor="nw", padx=20)
 
     # マッチング実行
-    def execute_matching(self, parent):
+    def execute_matching(self, parent, loading_window):
         print("マッチング実行")
 
         # csvファイルパス取得
@@ -111,6 +111,11 @@ class CsvMatchingPage(ctk.CTkFrame):
             matching_entry_map=matching_entry_map,
         )
 
+        # ローディングウィンドウを閉じる
+        if loading_window.winfo_exists():
+            loading_window.destroy()
+            loading_window.update_idletasks()
+
         if isinstance(result, str):
             self.error_message.configure(text=result)
             self.error_message_frame.pack(side="top", anchor="nw", padx=30)
@@ -121,13 +126,13 @@ class CsvMatchingPage(ctk.CTkFrame):
             result=result,
         )
 
-    # def show_loading_window(self):
-    #     # ローディングウィンドウを表示
-    #     loading_window = LoadingWindow(self)
+    def show_loading_window(self, parent):
+        # ローディングウィンドウを表示
+        loading_window = LoadingWindow(self)
 
-    #     # ローディングウィンドウを閉じるまでメインウィンドウを無効化してマッチング開始
-    #     threading.Thread(
-    #         target=self.execute_matching,
-    #         args=(loading_window,),
-    #         daemon=True,
-    #     ).start()
+        # ローディングウィンドウを閉じるまでメインウィンドウを無効化してマッチング開始
+        threading.Thread(
+            target=self.execute_matching,
+            args=(parent, loading_window),
+            daemon=True,
+        ).start()

@@ -37,6 +37,7 @@ class SlepPdfApp(ctk.CTk):
         if page_name == "MatchingResultPage":
             if "MatchingResultPage" in self.frames:
                 self.frames[page_name].destroy()  # 既存のFrameを破棄
+                self.frames[page_name].update_idletasks()  # 更新を強制
             frame = MatchingResultPage(
                 parent=self,
                 result=result,
