@@ -44,16 +44,29 @@ class CSVViewer(ctk.CTkFrame):
             "Treeview.Heading", font=("Meiryo UI", 12, "bold")
         )  # ヘッダーのフォント
 
+        # csv表示用Frame
+        csv_frame = ctk.CTkFrame(self, fg_color="transparent", corner_radius=0)
+        csv_frame.pack(fill="both", expand=True, padx=10)
+        csv_frame.grid_rowconfigure(0, weight=1)  # 行の重みを設定
+        csv_frame.grid_columnconfigure(0, weight=1)
+
         # Treeviewウィジェットを追加（テーブル表示用）
-        self.tree = ttk.Treeview(self, show="headings")  # ヘッダーを表示
-        self.tree.pack(fill="both", expand=True, padx=10)
+        self.tree = ttk.Treeview(csv_frame, show="headings")  # ヘッダーを表示
+        self.tree.grid(row=0, column=0, sticky="nsew")
+
+        # 縦スクロールバーを追加
+        self.y_scrollbar = ttk.Scrollbar(
+            csv_frame, orient="vertical", command=self.tree.yview
+        )
+        self.tree.configure(yscrollcommand=self.y_scrollbar.set)
+        self.y_scrollbar.grid(row=0, column=1, sticky="ns")
 
         # 横スクロールバーを追加
         self.x_scrollbar = ttk.Scrollbar(
-            self, orient="horizontal", command=self.tree.xview
+            csv_frame, orient="horizontal", command=self.tree.xview
         )
         self.tree.configure(xscrollcommand=self.x_scrollbar.set)
-        self.x_scrollbar.pack(fill="x", side="bottom", padx=10)
+        self.x_scrollbar.grid(row=1, column=0, sticky="ew")
 
         self.show_digital_target()
 
