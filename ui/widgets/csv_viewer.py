@@ -46,14 +46,14 @@ class CSVViewer(ctk.CTkFrame):
 
         # Treeviewウィジェットを追加（テーブル表示用）
         self.tree = ttk.Treeview(self, show="headings")  # ヘッダーを表示
-        self.tree.pack(fill="both", expand=True, padx=10, pady=10)
+        self.tree.pack(fill="both", expand=True, padx=10)
 
         # 横スクロールバーを追加
         self.x_scrollbar = ttk.Scrollbar(
             self, orient="horizontal", command=self.tree.xview
         )
         self.tree.configure(xscrollcommand=self.x_scrollbar.set)
-        self.x_scrollbar.pack(fill="x", side="bottom")
+        self.x_scrollbar.pack(fill="x", side="bottom", padx=10)
 
         self.show_digital_target()
 
