@@ -22,6 +22,7 @@ class CSVViewer(ctk.CTkFrame):
             fg_color=colors.link_color,
             hover_color=colors.link_color,
             command=self.show_digital_target,
+            font=font["title"],
         )
         self.load_digital_button.pack(side="left", padx=10, pady=5)
 
@@ -32,6 +33,7 @@ class CSVViewer(ctk.CTkFrame):
             fg_color=colors.accent_color,
             hover_color=colors.accent_color,
             command=self.show_postal_target,
+            font=font["title"],
         )
         self.load_postal_button.pack(side="left", padx=10, pady=5)
 
@@ -73,8 +75,12 @@ class CSVViewer(ctk.CTkFrame):
 
         # データを挿入（古いデータは削除）
         self.tree.delete(*self.tree.get_children())  # 既存データをクリア
-        for row_data in csv_data:
-            self.tree.insert("", "end", values=list(row_data.values()))  # 行を追加
+        for index, row_data in enumerate(csv_data):
+            tag = "evenrow" if index % 2 == 0 else "oddrow"
+            self.tree.insert("", "end", values=list(row_data.values()), tags=(tag,))
+
+        self.tree.tag_configure("evenrow", background="#e8e8e8")  # 偶数行
+        self.tree.tag_configure("oddrow", background="white")
 
     # デジタル通知対象者を表示
     def show_digital_target(self):

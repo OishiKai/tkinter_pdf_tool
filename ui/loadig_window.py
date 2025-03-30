@@ -43,5 +43,7 @@ class LoadingWindow(ctk.CTkToplevel):
         pass
 
     def close(self):
-        if self.winfo_exists():  # ウィンドウが存在する場合のみ破棄
-            self.destroy()
+        if self.winfo_exists():
+            self.withdraw()  # ウィンドウを非表示にする
+            self.grab_release()  # メインウィンドウの操作を再開
+            self.destroy()  # ウィンドウを破棄

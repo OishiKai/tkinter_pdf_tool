@@ -44,5 +44,8 @@ class MatchingResultWindow(ctk.CTkToplevel):
         self.view = CSVViewer(self, result)
 
     def backWindow(self):
-        self.destroy()
-        self.master.deiconify()
+        if self.winfo_exists():
+            self.withdraw()  # ウィンドウを非表示にする
+            self.grab_release()  # メインウィンドウの操作を再開
+            self.destroy()  # ウィンドウを破棄
+            print("マッチングウィンドウに戻ります")

@@ -129,13 +129,16 @@ class CsvMatchingWindow(ctk.CTk):
 
         # マッチング結果を表示するサブウィンドウを開く
         sub_window = MatchingResultWindow(self, result)
-        sub_window.grab_set()
-        sub_window.focus_set()
+
         # このウィンドウを無効化
         self.withdraw()
         self.wait_window(sub_window)
         # サブウィンドウが閉じられたらこのウィンドウを再表示
         self.deiconify()
+
+        # サブウィンドウを最前面に表示
+        sub_window.grab_set()
+        sub_window.focus_set()
 
     def show_loading_window(self):
         # ローディングウィンドウを表示
