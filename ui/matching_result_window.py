@@ -16,7 +16,7 @@ class MatchingResultPage(ctk.CTkFrame):
 
         ctk.CTkLabel(
             header_frame,
-            text="CSVマッチング結果",
+            text="通知方法分別結果",
             font=fonts["title"],
             text_color="white",
         ).pack(side="left", padx=20, pady=4)
@@ -52,7 +52,7 @@ class MatchingResultPage(ctk.CTkFrame):
                 text_color="white",
                 fg_color=colors.accent_color,
                 hover_color=colors.accent_color,
-                command=lambda: print("郵送通知PDF作成"),
+                command=self.onClickCreatePostalPdf,
                 font=fonts["title"],
             ).pack(side="right", padx=10, pady=10)
 
@@ -64,7 +64,7 @@ class MatchingResultPage(ctk.CTkFrame):
                 text_color="white",
                 fg_color=colors.link_color,
                 hover_color=colors.link_color,
-                command=lambda: print("デジタル通知PDF作成"),
+                command=self.onClickCreateDigitalPdf,
                 font=fonts["title"],
             ).pack(side="right", padx=10, pady=10)
 
@@ -73,4 +73,11 @@ class MatchingResultPage(ctk.CTkFrame):
             self.withdraw()  # ウィンドウを非表示にする
             self.grab_release()  # メインウィンドウの操作を再開
             self.destroy()  # ウィンドウを破棄
-            print("マッチングウィンドウに戻ります")
+
+    # デジタル通知PDF作成ボタン押下時
+    def onClickCreateDigitalPdf(self):
+        print("デジタル通知PDF作成ボタン押下")
+
+    # 郵送通知PDF作成ボタン押下時
+    def onClickCreatePostalPdf(self):
+        print("郵送通知PDF作成ボタン押下")

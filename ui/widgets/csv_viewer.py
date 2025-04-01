@@ -24,7 +24,7 @@ class CSVViewer(ctk.CTkFrame):
             command=self.show_digital_target,
             font=font["title"],
         )
-        self.load_digital_button.pack(side="left", padx=10, pady=5)
+        self.load_digital_button.pack(side="left", padx=10, pady=10)
 
         self.load_postal_button = ctk.CTkButton(
             top_frame,
@@ -35,7 +35,7 @@ class CSVViewer(ctk.CTkFrame):
             command=self.show_postal_target,
             font=font["title"],
         )
-        self.load_postal_button.pack(side="left", padx=10, pady=5)
+        self.load_postal_button.pack(side="left", padx=10, pady=10)
 
         if len(self.result["multiple_match"]) > 0:
             self.load_multiple_button = ctk.CTkButton(
