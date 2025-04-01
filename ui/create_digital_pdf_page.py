@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from config import colors
 from config.fonts import get_fonts
+from ui.widgets.file_save_form import FileSaveForm
 
 
 class CreateDigitalPdfPage(ctk.CTkFrame):
@@ -36,6 +37,8 @@ class CreateDigitalPdfPage(ctk.CTkFrame):
 
         ctk.CTkLabel(
             intro_frame,
-            text="デジタル通知PDFを作成します。",
+            text="デジタル通知用の通知物を作成します。",
             font=fonts["description"],
-        ).pack(side="top", anchor="nw", padx=10, pady=10)
+        ).pack(side="top", anchor="nw", padx=10)
+
+        self.file_save_form = FileSaveForm(self)
