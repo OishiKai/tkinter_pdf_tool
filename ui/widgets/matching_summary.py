@@ -40,7 +40,7 @@ class MatchingSummary(ctk.CTkFrame):
         all_summary_frame.pack(side="top", anchor="nw", padx=20)
 
         summary = "OK"
-        if len(result["multiple_matches"]) > 0:
+        if len(result["multiple_match"]) > 0:
             summary = "NG"
 
         # 結果概要のテーブル
@@ -127,7 +127,7 @@ class MatchingSummary(ctk.CTkFrame):
         ).grid(row=4, column=0)
         ctk.CTkLabel(
             all_summary_frame,
-            text=len(result["multiple_matches"]),
+            text=len(result["multiple_match"]),
             width=100,
             font=fonts["default"],
             fg_color="lightgray",

@@ -37,6 +37,18 @@ class CSVViewer(ctk.CTkFrame):
         )
         self.load_postal_button.pack(side="left", padx=10, pady=5)
 
+        if len(self.result["multiple_match"]) > 0:
+            self.load_multiple_button = ctk.CTkButton(
+                top_frame,
+                text="分別不可データを表示",
+                text_color="white",
+                fg_color=colors.error_color,
+                hover_color=colors.error_color,
+                command=self.show_multiple_target,
+                font=font["title"],
+            )
+            self.load_multiple_button.pack(side="left", padx=10, pady=5)
+
         # ttk のスタイルを設定（フォントサイズを統一）
         style = ttk.Style()
         style.configure("Treeview", font=("Meiryo UI", 10))  # 本体のフォント
@@ -68,8 +80,9 @@ class CSVViewer(ctk.CTkFrame):
         self.tree.configure(xscrollcommand=self.x_scrollbar.set)
         self.x_scrollbar.grid(row=1, column=0, sticky="ew")
 
-        self.show_digital_target()
+        self.show_digital_target()  # 初期表示はデジタル通知対象者
 
+    # テーブル要素構築
     def setup_csv(self, csv_data):
         headers = self.result["header"]
 
@@ -102,3 +115,7 @@ class CSVViewer(ctk.CTkFrame):
     # 郵送対象者を表示
     def show_postal_target(self):
         self.setup_csv(self.result["no_match"])
+
+    # 分別不可データを表示
+    def show_multiple_target(self):
+        self.setup_csv(self.result["multiple_match"])

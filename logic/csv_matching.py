@@ -229,7 +229,7 @@ def csv_matching(
             "header": address_list_csv_header,
             "no_match": no_match_records,
             "one_match": one_match_records,
-            "multiple_matches": multiple_matches_records,
+            "multiple_match": multiple_matches_records,
         }
 
     # CSVファイルを閉じる
