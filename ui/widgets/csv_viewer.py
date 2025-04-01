@@ -8,7 +8,7 @@ import config.colors as colors
 class CSVViewer(ctk.CTkFrame):
     def __init__(self, master, result):
         super().__init__(master, fg_color="transparent", corner_radius=0)
-        self.pack(fill="both", expand=True, pady=20)
+        self.pack(fill="both", expand=True)
         self.result = result
         font = fonts.get_fonts()
 

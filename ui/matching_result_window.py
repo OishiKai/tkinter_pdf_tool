@@ -41,6 +41,33 @@ class MatchingResultPage(ctk.CTkFrame):
         # 分別結果CSV表示
         self.view = CSVViewer(self, result)
 
+        next_frame = ctk.CTkFrame(self, fg_color="transparent", corner_radius=0)
+        next_frame.pack(fill="x")
+
+        # 郵送通知PDF作成
+        if len(result["no_match"]) > 0:
+            ctk.CTkButton(
+                next_frame,
+                text="郵送通知PDF作成",
+                text_color="white",
+                fg_color=colors.accent_color,
+                hover_color=colors.accent_color,
+                command=lambda: print("郵送通知PDF作成"),
+                font=fonts["title"],
+            ).pack(side="right", padx=10, pady=10)
+
+        # デジタル通知PDF作成
+        if len(result["one_match"]) > 0:
+            ctk.CTkButton(
+                next_frame,
+                text="デジタル通知PDF作成",
+                text_color="white",
+                fg_color=colors.link_color,
+                hover_color=colors.link_color,
+                command=lambda: print("デジタル通知PDF作成"),
+                font=fonts["title"],
+            ).pack(side="right", padx=10, pady=10)
+
     def backWindow(self):
         if self.winfo_exists():
             self.withdraw()  # ウィンドウを非表示にする
