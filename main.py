@@ -15,6 +15,10 @@ class SlepPdfApp(ctk.CTk):
         # 表示する画面の管理
         self.frames = {}
 
+        # Entryのフォーカス解除設定
+        self.bind_all("<Return>", self.remove_focus)
+        self.bind_all("<Escape>", self.remove_focus)
+
         # 縦横いっぱいに表示
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
@@ -42,7 +46,7 @@ class SlepPdfApp(ctk.CTk):
             frame = MatchingResultPage(
                 parent=self,
                 result=result,
-            )  # `result` を渡して新しく作成
+            )
             self.frames[page_name] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
@@ -54,7 +58,7 @@ class SlepPdfApp(ctk.CTk):
             frame = CreateDigitalPdfPage(
                 parent=self,
                 result=result,
-            )  # `result` を渡して新しく作成
+            )
             self.frames[page_name] = frame
             frame.grid(row=0, column=0, sticky="nsew")
 
