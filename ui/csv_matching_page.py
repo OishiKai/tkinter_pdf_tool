@@ -2,7 +2,7 @@ import customtkinter as ctk
 import threading
 import config.colors as colors
 from config.fonts import get_fonts
-from ui.matching_result_window import MatchingResultPage
+from ui.matching_result_page import MatchingResultPage
 from ui.loadig_window import LoadingWindow
 from ui.widgets.select_csv_file import SelectCsvFile
 from ui.widgets.select_matching_item import SelectMatchingItem

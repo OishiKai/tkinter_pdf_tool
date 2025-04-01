@@ -1,6 +1,6 @@
 import customtkinter as ctk
-from ui.csv_matching_window import CsvMatchingPage
-from ui.matching_result_window import MatchingResultPage
+from ui.csv_matching_page import CsvMatchingPage
+from ui.matching_result_page import MatchingResultPage
 
 
 # メインアプリクラス
