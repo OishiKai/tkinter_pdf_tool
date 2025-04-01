@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from ui.csv_matching_page import CsvMatchingPage
 from ui.matching_result_page import MatchingResultPage
+from ui.create_digital_pdf_page import CreateDigitalPdfPage
 
 
 # メインアプリクラス
@@ -39,6 +40,18 @@ class SlepPdfApp(ctk.CTk):
                 self.frames[page_name].destroy()  # 既存のFrameを破棄
                 self.frames[page_name].update_idletasks()  # 更新を強制
             frame = MatchingResultPage(
+                parent=self,
+                result=result,
+            )  # `result` を渡して新しく作成
+            self.frames[page_name] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
+
+        # CreateDigitalPdfPageへの遷移時
+        elif page_name == "CreateDigitalPdfPage":
+            if "CreateDigitalPdfPage" in self.frames:
+                self.frames[page_name].destroy()  # 既存のFrameを破棄
+                self.frames[page_name].update_idletasks()  # 更新を強制
+            frame = CreateDigitalPdfPage(
                 parent=self,
                 result=result,
             )  # `result` を渡して新しく作成

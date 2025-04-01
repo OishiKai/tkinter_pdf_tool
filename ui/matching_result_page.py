@@ -9,6 +9,8 @@ class MatchingResultPage(ctk.CTkFrame):
     def __init__(self, parent, result):
         super().__init__(parent)
         fonts = get_fonts()
+        self.parent = parent
+        self.result = result
 
         # ヘッダー
         header_frame = ctk.CTkFrame(self, fg_color=colors.theme_color, corner_radius=0)
@@ -76,7 +78,7 @@ class MatchingResultPage(ctk.CTkFrame):
 
     # デジタル通知PDF作成ボタン押下時
     def onClickCreateDigitalPdf(self):
-        print("デジタル通知PDF作成ボタン押下")
+        self.parent.show_frame("CreateDigitalPdfPage", self.result)
 
     # 郵送通知PDF作成ボタン押下時
     def onClickCreatePostalPdf(self):
