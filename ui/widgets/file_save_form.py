@@ -38,7 +38,7 @@ class FileSaveForm(ctk.CTkFrame):
             corner_radius=0,
             fg_color="transparent",
         )
-        file_save_form_frame.pack(fill="x", padx=20, pady=10)
+        file_save_form_frame.pack(fill="x", padx=20, pady=15)
 
         ctk.CTkLabel(
             file_save_form_frame,
