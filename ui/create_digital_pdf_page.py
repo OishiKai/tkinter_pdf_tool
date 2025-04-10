@@ -2,6 +2,7 @@ import customtkinter as ctk
 from config import colors
 from config.fonts import get_fonts
 from ui.widgets.file_save_form import FileSaveForm
+from ui.widgets.set_replace_words import SetReplaceWords
 
 
 class CreateDigitalPdfPage(ctk.CTkFrame):
@@ -41,4 +42,8 @@ class CreateDigitalPdfPage(ctk.CTkFrame):
             font=fonts["description"],
         ).pack(side="top", anchor="nw", padx=10)
 
+        # 通知物名入力・保存先選択
         self.file_save_form = FileSaveForm(self)
+
+        # 置換文字設定
+        self.replace_words = SetReplaceWords(self, result)
