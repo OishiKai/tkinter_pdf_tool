@@ -31,9 +31,9 @@ class SetReplaceWords(ctk.CTkFrame):
             self,
             corner_radius=0,
             fg_color="transparent",
-            height=81,  # フォームの高さを固定
+            height=75,  # フォームの高さを固定
         )
-        form_frame.pack(fill="x", padx=10, pady=5)
+        form_frame.pack(fill="x", padx=10, pady=12)
         form_frame.pack_propagate(False)  # 高さを固定
 
         # ScrollableFrameの作成

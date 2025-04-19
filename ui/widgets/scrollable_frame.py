@@ -12,7 +12,7 @@ class ScrollableFrame(ctk.CTkFrame):
 
         self.canvas = tk.Canvas(self, highlightthickness=0)
         self.scrollbar_x = ctk.CTkScrollbar(
-            self, orientation="horizontal", command=self.canvas.xview
+            self, orientation="horizontal", command=self.canvas.xview, height=15
         )
 
         self.scrollable_frame = ctk.CTkFrame(self.canvas, fg_color="transparent")
