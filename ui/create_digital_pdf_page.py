@@ -3,6 +3,7 @@ from config import colors
 from config.fonts import get_fonts
 from ui.widgets.file_save_form import FileSaveForm
 from ui.widgets.set_replace_words import SetReplaceWords
+from ui.widgets.select_original_book import SelectOriginalBookFrame
 
 
 class CreateDigitalPdfPage(ctk.CTkFrame):
@@ -47,3 +48,6 @@ class CreateDigitalPdfPage(ctk.CTkFrame):
 
         # 置換文字設定
         self.replace_words = SetReplaceWords(self, result)
+
+        # 原本ブック選択
+        self.original_book_frame = SelectOriginalBookFrame(self)

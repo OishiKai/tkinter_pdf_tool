@@ -29,3 +29,9 @@ def load_matching_config_from_json():
 def open_directory():
     directory_path = filedialog.askdirectory()
     return directory_path
+
+
+# Excelファイルを選択するダイアログを表示 .xlsx .xlsm
+def open_excel():
+    file_path = filedialog.askopenfilename(filetypes=[("Excel Files", "*.xlsx *.xlsm")])
+    return file_path
