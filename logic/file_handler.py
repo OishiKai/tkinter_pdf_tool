@@ -1,5 +1,6 @@
 from tkinter import filedialog
 import json
+import pandas as pd
 
 
 # CSVファイルを選択するダイアログを表示
@@ -35,3 +36,16 @@ def open_directory():
 def open_excel():
     file_path = filedialog.askopenfilename(filetypes=[("Excel Files", "*.xlsx *.xlsm")])
     return file_path
+
+
+# Excelファイルからシート一覧を取得
+def get_excel_sheets(file_path):
+    try:
+        # Excelファイルを読み込む
+        excel_file = pd.ExcelFile(file_path)
+        # シート名の一覧を取得
+        sheet_names = excel_file.sheet_names
+        return sheet_names
+    except Exception as e:
+        print(f"Excelファイルの読み込みエラー: {e}")
+        return []

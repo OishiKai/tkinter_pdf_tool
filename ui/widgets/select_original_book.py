@@ -54,5 +54,16 @@ class SelectOriginalBookFrame(ctk.CTkFrame):
     def select_original_book(self):
         file_path = file_handler.open_excel()
         if file_path:
+            self.file_path.delete(0, ctk.END)
             self.file_path.insert(0, file_path)
             self.file_path.configure(text_color=colors.link_color)
+
+            # シート一覧を取得してコンソールに表示
+            sheet_names = file_handler.get_excel_sheets(file_path)
+            print("\n=== シート一覧 ===")
+            if sheet_names:
+                for i, sheet_name in enumerate(sheet_names):
+                    print(f"{i+1}. {sheet_name}")
+            else:
+                print("シートが見つかりませんでした。")
+            print("===============\n")
